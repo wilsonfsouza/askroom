@@ -9,7 +9,7 @@ interface MainPartialContainerProps {
 export function MainPartialContainer({ children }: MainPartialContainerProps) {
     return (
         <main className={styles.mainContainer}>
-            <div className={styles.MainContent}>
+            <div className={styles.mainContent}>
                 <img src={logoImg} alt="Askroom logo" />
                 {children}
             </div>
