@@ -2,14 +2,14 @@ import { ReactNode } from "react";
 import logoImg from "../../../assets/images/logo.svg"
 import styles from './styles.module.scss';
 
-interface LoginMainContainerProps {
+interface MainPartialContainerProps {
     children: ReactNode;
 }
 
-export function LoginMainContainer({ children }: LoginMainContainerProps) {
+export function MainPartialContainer({ children }: MainPartialContainerProps) {
     return (
-        <main className={styles.loginMainContainer}>
-            <div className={styles.loginMainContent}>
+        <main className={styles.mainContainer}>
+            <div className={styles.MainContent}>
                 <img src={logoImg} alt="Askroom logo" />
                 {children}
             </div>
