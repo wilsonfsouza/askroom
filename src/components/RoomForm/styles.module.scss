@@ -1,0 +1,14 @@
+.form {
+    input {
+        height: 3.125rem;
+        border-radius: 0.5rem;
+        padding: 0 1rem;
+        background: var(--white);
+        border: 1px solid var(--gray-400);
+        width: 100%;
+    }
+
+    button {
+        margin-top: 1rem;
+    }
+}
