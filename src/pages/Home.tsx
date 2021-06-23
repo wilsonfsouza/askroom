@@ -5,17 +5,20 @@ import { MainPartialContainer } from "../components/Layout/MainPartialContainer"
 import { SpashIllustration } from "../components/SplashIllustration";
 import { FaGoogle } from 'react-icons/fa';
 import { RoomForm } from "../components/RoomForm";
-import styles from '../styles/pages/home.module.scss';
 import { BsBoxArrowInRight } from "react-icons/bs";
 import { useAuthentication } from '../hooks/useAuthentication';
+import styles from '../styles/pages/home.module.scss';
 
 export function Home() {
     const history = useHistory();
 
-    const { signInWithGoogle } = useAuthentication();
+    const { user, signInWithGoogle } = useAuthentication();
 
-    function handleCreateNewRoom() {
-        signInWithGoogle();
+    async function handleCreateNewRoom() {
+        if (!user) {
+            await signInWithGoogle();
+        }
+
         history.push('/rooms/new');
     }
 
