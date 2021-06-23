@@ -1,3 +1,4 @@
+import { useHistory } from 'react-router-dom';
 import { Button } from "../components/Button";
 import { LoginContainer } from "../components/Layout/LoginContainer";
 import { MainPartialContainer } from "../components/Layout/MainPartialContainer";
@@ -8,11 +9,17 @@ import styles from '../styles/pages/home.module.scss';
 import { BsBoxArrowInRight } from "react-icons/bs";
 
 export function Home() {
+    const history = useHistory();
+
+    function handleNavigationToNewRoom() {
+        history.push('/rooms/new');
+    }
+
     return (
         <LoginContainer>
             <SpashIllustration />
             <MainPartialContainer>
-                <Button leftIcon={FaGoogle} className={styles.createRoom}>
+                <Button leftIcon={FaGoogle} className={styles.createRoom} onClick={handleNavigationToNewRoom}>
                     Create your room with Google
                 </Button>
                 <div className={styles.separator}>or join a room</div>
