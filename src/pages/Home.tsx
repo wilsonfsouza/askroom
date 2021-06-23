@@ -1,4 +1,5 @@
 import { useHistory } from 'react-router-dom';
+import { auth, firebase } from '../services/firebase';
 import { Button } from "../components/Button";
 import { LoginContainer } from "../components/Layout/LoginContainer";
 import { MainPartialContainer } from "../components/Layout/MainPartialContainer";
@@ -7,11 +8,15 @@ import { FaGoogle } from 'react-icons/fa';
 import { RoomForm } from "../components/RoomForm";
 import styles from '../styles/pages/home.module.scss';
 import { BsBoxArrowInRight } from "react-icons/bs";
+import { useAuthentication } from '../hooks/useAuthentication';
 
 export function Home() {
     const history = useHistory();
 
-    function handleNavigationToNewRoom() {
+    const { signInWithGoogle } = useAuthentication();
+
+    function handleCreateNewRoom() {
+        signInWithGoogle();
         history.push('/rooms/new');
     }
 
@@ -19,7 +24,7 @@ export function Home() {
         <LoginContainer>
             <SpashIllustration />
             <MainPartialContainer>
-                <Button leftIcon={FaGoogle} className={styles.createRoom} onClick={handleNavigationToNewRoom}>
+                <Button leftIcon={FaGoogle} className={styles.createRoom} onClick={handleCreateNewRoom}>
                     Create your room with Google
                 </Button>
                 <div className={styles.separator}>or join a room</div>
