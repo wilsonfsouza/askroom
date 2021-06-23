@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { LoginContainer } from "../components/Layout/LoginContainer";
 import { MainPartialContainer } from "../components/Layout/MainPartialContainer";
 import { SpashIllustration } from "../components/SplashIllustration";
@@ -15,10 +16,9 @@ export function NewRoom() {
                     <Button type="submit">Create a room</Button>
                 </RoomForm>
                 <p className={styles.newRoomParagraph}>
-                    Would you like to join an existent room? <a href="#">Click here</a>
+                    Would you like to join an existent room? <Link to="/">Click here</Link>
                 </p>
             </MainPartialContainer>
         </LoginContainer>
     );
 }
-// aula 2 minuto 44:27
