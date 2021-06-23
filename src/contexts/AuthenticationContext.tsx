@@ -9,7 +9,7 @@ type User = {
 
 interface AuthenticationContextData {
     user: User | undefined;
-    signInWithGoogle: () => void;
+    signInWithGoogle: () => Promise<void>;
 }
 
 interface AuthenticationProviderProps {
