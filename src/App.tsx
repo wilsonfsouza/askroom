@@ -1,13 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { AuthenticationProvider } from './contexts/AuthenticationContext';
 import { Home } from './pages/Home';
 import { NewRoom } from './pages/NewRoom';
 
 function App() {
   return (
     <BrowserRouter>
-      <Route path="/" exact component={Home} />
-      <Route path="/rooms/new" component={NewRoom} />
+      <AuthenticationProvider>
+        <Route path="/" exact component={Home} />
+        <Route path="/rooms/new" component={NewRoom} />
+      </AuthenticationProvider>
     </BrowserRouter>
   );
 }

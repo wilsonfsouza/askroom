@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { AuthenticationProvider } from './contexts/AuthenticationContext';
 // import reportWebVitals from './reportWebVitals';
 
 import './services/firebase';
@@ -9,9 +8,7 @@ import './styles/global.scss';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthenticationProvider>
-      <App />
-    </AuthenticationProvider>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
