@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useCallback, useState } from 'react';
+import { createContext, ReactNode, useCallback, useEffect, useState } from 'react';
 import { firebase, auth } from '../services/firebase';
 
 type User = {
@@ -43,6 +43,26 @@ export function AuthenticationProvider({ children }: AuthenticationProviderProps
         }
         console.log(result);
 
+    }, []);
+
+    useEffect(() => {
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                const { displayName, photoURL, uid } = user;
+
+                if (!displayName || !photoURL) {
+                    throw new Error('Missing information from Google Account.')
+                }
+
+                const formatedUser = {
+                    id: uid,
+                    name: displayName,
+                    avatar: photoURL,
+                }
+
+                setUser(formatedUser);
+            }
+        });
     }, []);
 
     return (
