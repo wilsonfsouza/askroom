@@ -5,6 +5,7 @@ import { SpashIllustration } from "../components/SplashIllustration";
 import { FaGoogle } from 'react-icons/fa';
 import { RoomForm } from "../components/RoomForm";
 import styles from '../styles/pages/home.module.scss';
+import { BsBoxArrowInRight } from "react-icons/bs";
 
 export function Home() {
     return (
@@ -15,7 +16,9 @@ export function Home() {
                     Create your room with Google
                 </Button>
                 <div className={styles.separator}>or join a room</div>
-                <RoomForm inputPlaceholder="Enter the room number" />
+                <RoomForm inputPlaceholder="Enter the room number">
+                    <Button type="submit" leftIcon={BsBoxArrowInRight}>Join a room</Button>
+                </RoomForm>
             </MainPartialContainer>
         </LoginContainer>
     );
