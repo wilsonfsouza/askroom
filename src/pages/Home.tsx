@@ -1,5 +1,4 @@
 import { useHistory } from 'react-router-dom';
-import { auth, firebase } from '../services/firebase';
 import { Button } from "../components/Button";
 import { LoginContainer } from "../components/Layout/LoginContainer";
 import { MainPartialContainer } from "../components/Layout/MainPartialContainer";
