@@ -21,27 +21,28 @@ export const AuthenticationContext = createContext<AuthenticationContextData>({}
 export function AuthenticationProvider({ children }: AuthenticationProviderProps) {
     const [user, setUser] = useState<User>();
 
-    const signInWithGoogle = useCallback(() => {
+    const signInWithGoogle = useCallback(async () => {
         const provider = new firebase.auth.GoogleAuthProvider();
 
-        auth.signInWithPopup(provider).then(result => {
-            if (result.user) {
-                const { displayName, photoURL, uid } = result.user;
+        const result = await auth.signInWithPopup(provider);
 
-                if (!displayName || !photoURL) {
-                    throw new Error('Missing information from Google Account.')
-                }
+        if (result.user) {
+            const { displayName, photoURL, uid } = result.user;
 
-                const formatedUser = {
-                    id: uid,
-                    name: displayName,
-                    avatar: photoURL,
-                }
-
-                setUser(formatedUser);
+            if (!displayName || !photoURL) {
+                throw new Error('Missing information from Google Account.')
             }
-            console.log(result);
-        });
+
+            const formatedUser = {
+                id: uid,
+                name: displayName,
+                avatar: photoURL,
+            }
+
+            setUser(formatedUser);
+        }
+        console.log(result);
+
     }, []);
 
     return (
