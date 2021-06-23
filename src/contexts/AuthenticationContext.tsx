@@ -46,7 +46,7 @@ export function AuthenticationProvider({ children }: AuthenticationProviderProps
     }, []);
 
     useEffect(() => {
-        auth.onAuthStateChanged(user => {
+        const unsubscribe = auth.onAuthStateChanged(user => {
             if (user) {
                 const { displayName, photoURL, uid } = user;
 
@@ -63,6 +63,10 @@ export function AuthenticationProvider({ children }: AuthenticationProviderProps
                 setUser(formatedUser);
             }
         });
+
+        return () => {
+            unsubscribe();
+        }
     }, []);
 
     return (
