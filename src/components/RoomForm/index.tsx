@@ -1,19 +1,19 @@
-import { Button } from "../Button";
-import { BsBoxArrowInRight } from 'react-icons/bs';
 import styles from './styles.module.scss';
+import { ReactNode } from "react";
 
 interface RoomFormProps {
     inputPlaceholder: string;
+    children: ReactNode;
 }
 
-export function RoomForm({ inputPlaceholder }: RoomFormProps) {
+export function RoomForm({ inputPlaceholder, children }: RoomFormProps) {
     return (
         <form className={styles.form} onSubmit={() => { }}>
             <input
                 type="text"
                 placeholder={inputPlaceholder}
             />
-            <Button type="submit" leftIcon={BsBoxArrowInRight}>Join a room</Button>
+            {children}
         </form>
     );
 }
