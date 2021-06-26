@@ -1,18 +1,13 @@
 import styles from './styles.module.scss';
-import { ReactNode } from "react";
+import { FormHTMLAttributes, ReactNode } from "react";
 
-interface RoomFormProps {
-    inputPlaceholder: string;
+interface RoomFormProps extends FormHTMLAttributes<HTMLFormElement> {
     children: ReactNode;
 }
 
-export function RoomForm({ inputPlaceholder, children }: RoomFormProps) {
+export function RoomForm({ children, ...rest }: RoomFormProps) {
     return (
-        <form className={styles.form} onSubmit={() => { }}>
-            <input
-                type="text"
-                placeholder={inputPlaceholder}
-            />
+        <form className={styles.form} {...rest}>
             {children}
         </form>
     );
