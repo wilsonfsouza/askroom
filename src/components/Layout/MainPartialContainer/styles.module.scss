@@ -1,0 +1,24 @@
+.mainContainer {
+    flex: 8;
+
+    padding: 0 2rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    text-align: center;
+
+    width: 100%;
+    max-width: 20rem;
+
+    > img {
+        align-self: center;
+    }
+}
