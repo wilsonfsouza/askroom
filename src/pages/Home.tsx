@@ -30,7 +30,11 @@ export function Home() {
                     Create your room with Google
                 </Button>
                 <div className={styles.separator}>or join a room</div>
-                <RoomForm inputPlaceholder="Enter the room number">
+                <RoomForm>
+                    <input
+                        type="text"
+                        placeholder="Enter the room number"
+                    />
                     <Button type="submit" leftIcon={BsBoxArrowInRight}>Join a room</Button>
                 </RoomForm>
             </MainPartialContainer>
