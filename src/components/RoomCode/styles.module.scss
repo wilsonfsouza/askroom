@@ -1,0 +1,32 @@
+.roomCodeContainer {
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+
+    background: var(--white);
+    border: 1px solid var(--purple-100);
+
+    display: flex;
+    
+    div {
+        background: var(--purple-100);
+        padding: 0 0.75rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        color: var(--white);
+    }
+
+    span {
+        display: block;
+        align-self: center;
+        flex: 1;
+
+        padding: 0 1rem 0 0.75rem;
+        width: 15rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+}

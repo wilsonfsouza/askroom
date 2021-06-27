@@ -1,11 +1,18 @@
+import { useParams } from 'react-router-dom';
 import { Button } from '../components/Button';
 import { Header } from '../components/Header';
 import styles from '../styles/pages/room.module.scss';
 
+type RoomParams = {
+    id: string;
+}
+
 export function Room() {
+    const params = useParams<RoomParams>();
+
     return (
         <div>
-            <Header />
+            <Header code={params.id} />
             <main className={styles.content}>
                 <div className={styles.roomTitle}>
                     <h1>Room React</h1>
