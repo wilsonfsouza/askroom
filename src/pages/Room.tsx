@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import { Button } from '../components/Button';
@@ -6,6 +6,27 @@ import { Header } from '../components/Header';
 import { useAuthentication } from '../hooks/useAuthentication';
 import { database } from '../services/firebase';
 import styles from '../styles/pages/room.module.scss';
+
+type FirebaseQuestions = Record<string, {
+    author: {
+        name: string;
+        avatar: string;
+    }
+    content: string;
+    isAnswered: boolean;
+    isHighlighted: boolean;
+}>
+
+type Question = {
+    id: string;
+    author: {
+        name: string;
+        avatar: string;
+    }
+    content: string;
+    isAnswered: boolean;
+    isHighlighted: boolean;
+}
 
 type RoomParams = {
     id: string;
@@ -17,6 +38,28 @@ export function Room() {
     const roomId = params.id;
 
     const [newQuestion, setNewQuestion] = useState('');
+    const [questions, setQuestions] = useState<Question[]>([]);
+    const [title, setTitle] = useState('');
+
+    useEffect(() => {
+        const roomRef = database.ref(`rooms/${roomId}`);
+
+        roomRef.once('value', room => {
+            const databaseRoom = room.val();
+
+            const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
+
+            const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
+                return {
+                    id: key,
+                    ...value
+                }
+            })
+
+            setTitle(databaseRoom.title);
+            setQuestions(parsedQuestions);
+        })
+    }, [roomId]);
 
     async function handleSendNewQuestion(event: FormEvent) {
         event.preventDefault();
@@ -55,8 +98,8 @@ export function Room() {
             <Header code={roomId} />
             <main className={styles.content}>
                 <div className={styles.roomTitle}>
-                    <h1>Room React</h1>
-                    <span>4 questions</span>
+                    <h1>Room {title}</h1>
+                    {questions.length > 0 && (<span>{questions.length} question(s)</span>)}
                 </div>
 
                 <form className={styles.form} onSubmit={handleSendNewQuestion}>
@@ -81,6 +124,7 @@ export function Room() {
                         reverseOrder={false}
                     />
                 </form>
+                {JSON.stringify(questions)}
             </main>
         </div>
     )
