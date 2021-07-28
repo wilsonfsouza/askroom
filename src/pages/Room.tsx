@@ -1,32 +1,13 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import { Button } from '../components/Button';
 import { Header } from '../components/Header';
+import { Question } from '../components/Question';
 import { useAuthentication } from '../hooks/useAuthentication';
+import { useRoom } from '../hooks/useRoom';
 import { database } from '../services/firebase';
 import styles from '../styles/pages/room.module.scss';
-
-type FirebaseQuestions = Record<string, {
-    author: {
-        name: string;
-        avatar: string;
-    }
-    content: string;
-    isAnswered: boolean;
-    isHighlighted: boolean;
-}>
-
-type Question = {
-    id: string;
-    author: {
-        name: string;
-        avatar: string;
-    }
-    content: string;
-    isAnswered: boolean;
-    isHighlighted: boolean;
-}
 
 type RoomParams = {
     id: string;
@@ -37,29 +18,9 @@ export function Room() {
     const params = useParams<RoomParams>();
     const roomId = params.id;
 
+    const { questions, title } = useRoom(roomId)
+
     const [newQuestion, setNewQuestion] = useState('');
-    const [questions, setQuestions] = useState<Question[]>([]);
-    const [title, setTitle] = useState('');
-
-    useEffect(() => {
-        const roomRef = database.ref(`rooms/${roomId}`);
-
-        roomRef.once('value', room => {
-            const databaseRoom = room.val();
-
-            const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
-
-            const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
-                return {
-                    id: key,
-                    ...value
-                }
-            })
-
-            setTitle(databaseRoom.title);
-            setQuestions(parsedQuestions);
-        })
-    }, [roomId]);
 
     async function handleSendNewQuestion(event: FormEvent) {
         event.preventDefault();
@@ -124,7 +85,16 @@ export function Room() {
                         reverseOrder={false}
                     />
                 </form>
-                {JSON.stringify(questions)}
+
+                <div className={styles.questionList}>
+                    {questions.map((question) => (
+                        <Question
+                            key={question.id}
+                            author={question.author}
+                            content={question.content}
+                        />
+                    ))}
+                </div>
             </main>
         </div>
     )
